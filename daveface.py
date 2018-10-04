@@ -126,15 +126,19 @@ def addface():
 
 @app.route('/daveface/predict', methods=['POST'])
 def predict():
+    print("")
     print("==================")
     print("Predicting started")
     print("==================")
     print("")
+
     start = time.time()
 
     returnValue = "Fail..."
     
     requestData = request.get_json()
+
+    print(requestData)
     
     if (
         not requestData 
@@ -172,6 +176,7 @@ def predict():
 
 @app.route('/daveface/getmodels', methods=['GET'])
 def getmodels():
+    print(Globals.model_path)
     if os.path.isdir(Globals.model_path) == False:
         return jsonify({
             'success': True,

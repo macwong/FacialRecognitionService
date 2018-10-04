@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 class Globals():
-    app_path = str(Path(os.getcwd()).parent)
+    app_path = str(Path(os.getcwd()))
     data_path = os.path.join(app_path, "data")
     model_path = os.path.join(app_path, "models")
     temp_path = os.path.join(data_path, "temp")
