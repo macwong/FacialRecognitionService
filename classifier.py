@@ -87,7 +87,7 @@ def train(data_dir, session, classifier_filename, model_type):
     # Saving classifier model
     helpers.save_model(features.classifier_filename_exp, model, class_names, features.emb_array, features.labels)
 
-def prediction(data_dir, session, classifier_filename, model_path, verbose):
+def prediction(data_dir, session, classifier_filename, model_path, verbose, encoded_image):
     features = get_features(data_dir, session, classifier_filename)
 
     if features.success == False:
@@ -193,7 +193,7 @@ def prediction(data_dir, session, classifier_filename, model_path, verbose):
         
         prediction_id = Globals.current_prediction_id
         Globals.current_prediction_id += 1
-        
+
         pred_names.append({
             "prediction_id": prediction_id,
             "pred_name": pred_name,
@@ -203,6 +203,7 @@ def prediction(data_dir, session, classifier_filename, model_path, verbose):
             "image": encoded_string,
             "pred_info": pred_info_list,
             "embeddings":  features.emb_array[i].tolist(),
+            "original_image": encoded_image,
             "model_info": {
                 "model_name": os.path.basename(model_path),
                 "class_names": class_names,

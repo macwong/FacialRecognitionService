@@ -1,3 +1,4 @@
+import base64
 import os
 import shutil
 import classifier
@@ -36,6 +37,12 @@ def predict(image, model_folder, verbose):
     if error != "":
         return PredictResponse(error)
 
+    encoded_image = ""
+
+    with open(file_path, "rb") as image_file:
+        encoded_image = base64.b64encode(image_file.read())
+        encoded_image = encoded_image.decode('utf-8')
+
     my_graph = MyGraph()
 
     start = time.time()
@@ -59,7 +66,7 @@ def predict(image, model_folder, verbose):
 
     start = time.time()
 
-    predict_response = classifier.prediction(temp_predict, my_graph, classifier_file, model_path, verbose)
+    predict_response = classifier.prediction(temp_predict, my_graph, classifier_file, model_path, verbose, encoded_image)
     print("Cleanup...")
     shutil.rmtree(temp_predict)
     
